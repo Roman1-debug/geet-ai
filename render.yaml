@@ -1,13 +1,19 @@
 services:
   - type: web
     name: geet-ai-backend
-    env: python
-    plan: free
+    runtime: python
     buildCommand: |
-      apt-get update && apt-get install -y ffmpeg libavdevice-dev libavfilter-dev libavformat-dev libavcodec-dev libavutil-dev libswresample-dev libswscale-dev pkg-config
+      apt-get update && apt-get install -y \
+        ffmpeg \
+        libavcodec-dev \
+        libavformat-dev \
+        libavutil-dev \
+        libavdevice-dev \
+        libavfilter-dev \
+        libswscale-dev \
+        libswresample-dev && \
       pip install -r requirements.txt
-    startCommand: uvicorn main:app --host=0.0.0.0 --port=10000
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
     envVars:
       - key: PYTHON_VERSION
         value: 3.10
-    autoDeploy: true
