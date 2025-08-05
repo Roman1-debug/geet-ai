@@ -1,15 +1,13 @@
 services:
   - type: web
-    name: geet-ai-backend
+    name: geet-backend
     runtime: python
     buildCommand: |
       apt-get update && \
       apt-get install -y ffmpeg libsm6 libxext6 && \
       pip install --upgrade pip && \
       pip install -r requirements.txt
-    startCommand: uvicorn main:app --host=0.0.0.0 --port=10000
-    env: python
-    region: oregon
-    plan: free
-    branch: main
-    autoDeploy: true
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10
